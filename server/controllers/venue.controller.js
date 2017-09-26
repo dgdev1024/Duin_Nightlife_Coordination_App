@@ -152,7 +152,7 @@ module.exports = {
                     },
                     (err) => {
                         if (err) { return next(err); }
-                        return next(null, entrie.sort((a, b) => a.distance - b.distance), lastPage);
+                        return next(null, entries.sort((a, b) => a.distance - b.distance), lastPage);
                     }
                 );
             }
