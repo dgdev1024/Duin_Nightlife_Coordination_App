@@ -98,8 +98,7 @@ module.exports = {
                                     closed_down: val.is_closed,
                                     distance: val.distance
                                 };
-                            })
-                            .sort((a, b) => a.distance - b.distnace);
+                            });
 
                         // Check to see if this is the last page of the query.
                         const lastPage = businesses.length !== 21;
@@ -153,7 +152,7 @@ module.exports = {
                     },
                     (err) => {
                         if (err) { return next(err); }
-                        return next(null, entries, lastPage);
+                        return next(null, entrie.sort((a, b) => a.distance - b.distance), lastPage);
                     }
                 );
             }
