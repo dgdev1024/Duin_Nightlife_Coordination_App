@@ -53,7 +53,7 @@ module.exports = {
             // Fetch chatters on the venue.
             (next) => {
                 chatterModel.find({ businessId: details.venueId })
-                    .sort('postDate-')
+                    .sort('postDate+')
                     .limit(100)
                     .exec()
                     .then(chatters => {
