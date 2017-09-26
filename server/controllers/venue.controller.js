@@ -87,14 +87,18 @@ module.exports = {
                         }
 
                         // Format the businesses. Filter out any ones that have "closed their doors for good".
-                        const mapped = businesses.slice(0, 20).filter(v => v.is_closed === false).map(val => {
-                            return {
-                                id: val.id,
-                                name: val.name,
-                                image: val.image_url,
-                                closed_down: val.is_closed
-                            };
-                        });
+                        const mapped = businesses
+                            .sort((a, b) => b.distance - a.distance)
+                            .slice(0, 20)
+                            .filter(v => v.is_closed === false)
+                            .map(val => {
+                                return {
+                                    id: val.id,
+                                    name: val.name,
+                                    image: val.image_url,
+                                    closed_down: val.is_closed
+                                };
+                            });
 
                         // Check to see if this is the last page of the query.
                         const lastPage = businesses.length !== 21;

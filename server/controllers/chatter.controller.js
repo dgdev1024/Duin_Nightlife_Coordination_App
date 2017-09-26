@@ -64,12 +64,14 @@ module.exports = {
                             });
                         }
 
-                        const mapped = chatters.map(val => {
-                            return {
-                                author: val.authorName,
-                                body: val.body
-                            };
-                        });
+                        const mapped = chatters
+                            .sort((a, b) => b.postDate.getTime() - a.postDate.getTime())
+                            .map(val => {
+                                return {
+                                    author: val.authorName,
+                                    body: val.body
+                                };
+                            });
 
                         return next(null, mapped);
                     })
