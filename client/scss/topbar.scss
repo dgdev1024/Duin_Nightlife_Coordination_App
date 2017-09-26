@@ -28,6 +28,7 @@
             font-size: 24px;
             font-weight: 700;
             color: $neon-red;
+            @include text-shadow(1px, 1px, 5px, pink);
             
             @media #{$xs-screen} {
                 display: none;
