@@ -121,12 +121,12 @@ module.exports = {
                             .then(response => {
                                 // If the business was not found, then add it to the database.
                                 if (response) {
-                                    entries.push({ ...val, going: response.attendantCount });
+                                    entries.push(Object.assign({}, val, { going: response.attendantCount }));
                                     return cb();
                                 } else {
                                     venueModel.create({ businessId: val.id })
                                         .then(response => {
-                                            entries.push({ ...val, going: 0 });
+                                            entries.push(Object.assign({}, val, { going: 0 }));
                                             console.log(`Found new business with ID: ${response.businessId}!`);
                                             return cb();
                                         })
