@@ -88,7 +88,6 @@ module.exports = {
 
                         // Format the businesses. Filter out any ones that have "closed their doors for good".
                         const mapped = businesses
-                            .sort((a, b) => b.distance - a.distance)
                             .slice(0, 20)
                             .filter(v => v.is_closed === false)
                             .map(val => {
