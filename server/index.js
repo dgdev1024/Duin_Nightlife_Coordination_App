@@ -35,6 +35,7 @@ module.exports = () => {
     // Some custom middleware to force HTTPS if we are on Heroku.
     // SOURCE: https://stackoverflow.com/a/31144924/2868302
     app.use((req, res, next) => {
+        console.log(req.protocol);
         if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
             return res.redirect(process.env.SITE_URL + req.url);
         }
