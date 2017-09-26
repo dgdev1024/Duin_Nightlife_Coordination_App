@@ -5,6 +5,7 @@
 
 // Imports
 const express           = require('express');
+const socketIo          = require('socket.io');
 const venueController   = require('../controllers/venue.controller');
 const chatterController = require('../controllers/chatter.controller');
 const userModel         = require('../models/user.model');
@@ -24,7 +25,7 @@ module.exports = socket => {
             page: parseInt(req.query.page) || 0
         }, (err, ok) => {
             if (err) { return res.status(err.status).json({ error: err }); }
-            return res.status(200).json({ venues: ok });
+            return res.status(200).json(ok);
         });
     });
 
@@ -48,7 +49,7 @@ module.exports = socket => {
     router.put('/toggleAttend/:venueId', auth.jwt, (req, res) => {
         auth.testLogin(req, (err, user) => {
             if (err) { return res.status(err.status).json({ error: err }); }
-            venueController.toggleAttendVenue(user.id, req.params.venueId, (err) => {
+            venueController.toggleAttendVenue(user.id, req.params.venueId, socket, (err) => {
                 if (err) { return res.status(err.status).json({ error: err }); }
                 return res.status(200).end();
             });
@@ -61,7 +62,8 @@ module.exports = socket => {
             chatterController.postChatter({
                 userId: user.id,
                 venueId: req.params.venueId,
-                body: req.body.body
+                body: req.body.body,
+                socket
             }, (err, ok) => {
                 if (err) { return res.status(err.status).json({ error: err }); }
                 return res.status(200).end();
@@ -69,16 +71,12 @@ module.exports = socket => {
         });
     });
 
-    router.get('/chatters/:venueId', auth.jwt, (req, res) => {
-        auth.testLogin(req, (err, user) => {
+    router.get('/chatters/:venueId', (req, res) => {
+        chatterController.fetchChatters({
+            venueId: req.params.venueId
+        }, (err, ok) => {
             if (err) { return res.status(err.status).json({ error: err }); }
-            chatterController.fetchChatters({
-                venueId: req.params.venueId,
-                page: parseInt(req.params.page) || 0
-            }, (err, ok) => {
-                if (err) { return res.status(err.status).json({ error: err }); }
-                return res.status(200).json({ chatters: ok });
-            });
+            return res.status(200).json(ok);
         });
     });
 

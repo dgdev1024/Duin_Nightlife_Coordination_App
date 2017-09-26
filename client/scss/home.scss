@@ -1,0 +1,232 @@
+.ddd-intro-bg {
+    background-image: url(https://www.dropbox.com/s/sc7420lvdb99q9x/background.jpeg?raw=1);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    height: 664px;
+
+    .ddd-intro-caption {
+        width: 480px;
+        margin: 160px auto 0px auto;
+        padding: 16px;
+        box-sizing: border-box;
+        overflow: auto;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.8);
+        text-align: center;
+        
+        @media #{$sm-screen} {
+            width: 100%;
+            margin: 124px auto 0px auto;
+        }
+
+        .ddd-intro-heading {
+            font-family: $special-font;
+            font-variant: small-caps;
+            font-size: 40px;
+            color: $neon-yellow;
+
+            @media #{$sm-screen} {
+                font-size: 30px;
+            }
+
+            @media #{$xs-screen} {
+                font-size: 24px;
+            }
+
+            .ddd-intro-large {
+                font-size: 48px;
+                color: $neon-red;
+
+                @media #{$sm-screen} {
+                    font-size: 34px;
+                }
+
+                @media #{$xs-screen} {
+                    font-size: 28px;
+                }
+            }
+        }
+
+        .ddd-intro-subheading {
+            display: block;
+            margin: 32px 0px 8px 0px;
+            font-style: italic;
+            
+            p {
+                margin-bottom: 32px;
+                font-size: 22px;
+                @media #{$sm-screen} {
+                    font-size: 18px;
+                }
+                @media #{$xs-screen} {
+                    font-size: 16px;
+                }
+            }
+
+            .ddd-intro-input {
+                display: block;
+                width: 100%;
+                padding: 8px;
+                box-sizing: border-box;
+                text-align: center;
+                color: white;
+                background-color: transparent;
+                border: none;
+                border-bottom: 2px solid white;
+                font-size: 22px;
+
+                &:focus {
+                    outline: 0;
+                }
+
+                @media #{$sm-screen} {
+                    font-size: 18px;
+                }
+
+                @media #{$xs-screen} {
+                    font-size: 16px;
+                    border-bottom-width: 4px;
+                }
+            }
+
+            .ddd-intro-button {
+                display: block;
+                float: left;
+                width: 50%;
+                padding: 8px;
+                box-sizing: border-box;
+                text-align: center;
+                color: white;
+                background-color: transparent;
+                border: none;
+                border-top: 2px solid white;
+                font-size: 22px;
+
+                &#left {
+                    border-right: 2px solid white;
+                }
+
+                &#right {
+                    border-left: 2px solid white;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba(255, 255, 255, 0.2);
+                }
+
+                &:focus {
+                    outline: 0;
+                }
+                
+                @media #{$sm-screen} {
+                    font-size: 18px;
+                }
+
+                @media #{$xs-screen} {
+                    float: none;
+                    width: 100%;
+                    font-size: 16px;
+                    border-top: none;
+                    border-bottom: 4px solid white;
+
+                    &#left { border-right: none; }
+                    &#right { border-left: none; }
+                }
+            }
+        }
+    }
+}
+
+.ddd-results {
+    .ddd-results-heading {
+        display: block;
+        padding: 16px 0px;
+        font-family: $special-font;
+        font-variant: small-caps;
+        font-size: 40px;
+        text-align: center;
+
+        @media #{$sm-screen} {
+            font-size: 30px;
+        }
+
+        @media #{$xs-screen} {
+            font-size: 24px;
+        }
+    }
+
+    .ddd-results-notice {
+        padding: 16px 0px;
+        font-style: italic;
+        text-align: center;
+    }
+
+    .ddd-results-panes {
+        width: 95%;
+        max-width: 1280px;
+        margin: 0px auto;
+        padding: 16px 0px;
+
+        .ddd-results-pane {
+            float: left;
+            width: 23%;
+            margin: 8px 1%;
+            padding: 8px;
+            box-sizing: border-box;
+
+            @media #{$sm-screen} {
+                float: none;
+                width: 75%;
+                margin: 8px auto;
+            }
+
+            @media #{$xs-screen} {
+                width: 95%;
+            }
+
+            img {
+                display: block;
+                max-width: 100%;
+                margin: 0px auto 8px auto;
+            }
+
+            .ddd-results-subheading {
+                display: block;
+                font-family: $special-font;
+                font-variant: small-caps;
+                font-size: 24px;
+                text-align: center;
+
+                @media #{$sm-screen} {
+                    font-size: 20px;
+                }
+            }
+
+            p {
+                margin: 8px 0px;
+                font-style: italic;
+                text-align: center;
+            }
+
+            &:nth-child(4n+1) {
+                content: "";
+                display: block;
+                clear: both;
+            }
+        }
+
+        &:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+    }
+    
+    .ddd-results-pagination {
+        margin: 8px auto;
+        text-align: center;
+    }
+}

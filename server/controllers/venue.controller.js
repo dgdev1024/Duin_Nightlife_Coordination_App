@@ -34,7 +34,7 @@ module.exports = {
                 let query = {
                     categories: 'bars,sportsbars',
                     radius: 32187,
-                    limit: 20,
+                    limit: 21,
                     offset: 20 * details.page
                 };
 
@@ -53,7 +53,7 @@ module.exports = {
                     }
 
                     if (details.where.longitude) {
-                        query.longitude = details.where.latitude;
+                        query.longitude = details.where.longitude;
                     }
 
                     if (!query.latutide && !query.longitude) {
@@ -86,7 +86,7 @@ module.exports = {
                         }
 
                         // Format the businesses. Filter out any ones that have "closed their doors for good".
-                        const mapped = businesses.filter(v => v.is_closed === false).map(val => {
+                        const mapped = businesses.slice(0, 20).filter(v => v.is_closed === false).map(val => {
                             return {
                                 id: val.id,
                                 name: val.name,
@@ -95,8 +95,11 @@ module.exports = {
                             };
                         });
 
+                        // Check to see if this is the last page of the query.
+                        const lastPage = businesses.length !== 21;
+
                         // Send this array or businesses to the next function.
-                        return next(null, mapped);
+                        return next(null, mapped, lastPage);
                     })
                     .catch(err => {
                         console.error(`venueController.findVenues (yelp): ${err}`);
@@ -109,7 +112,7 @@ module.exports = {
 
             // Cross-reference our list of fetched businesses with the businesses registered
             // in our database. If any fetched businesses are not found in our database, then add them.
-            (fetchedBusinesses, next) => {
+            (fetchedBusinesses, lastPage, next) => {
                 let entries = [];
                 forEachOf(
                     fetchedBusinesses,
@@ -118,12 +121,12 @@ module.exports = {
                             .then(response => {
                                 // If the business was not found, then add it to the database.
                                 if (response) {
-                                    entries.push(val);
+                                    entries.push({ ...val, going: response.attendantCount });
                                     return cb();
                                 } else {
                                     venueModel.create({ businessId: val.id })
                                         .then(response => {
-                                            entries.push(val);
+                                            entries.push({ ...val, going: 0 });
                                             console.log(`Found new business with ID: ${response.businessId}!`);
                                             return cb();
                                         })
@@ -144,16 +147,16 @@ module.exports = {
                     },
                     (err) => {
                         if (err) { return next(err); }
-                        return next(null, entries);
+                        return next(null, entries, lastPage);
                     }
                 );
             }
-        ], (err, results) => {
+        ], (err, results, lastPage) => {
             if (err) {
                 return callback(err);
             }
 
-            return callback(null, results);
+            return callback(null, { venues: results, lastPage });
         });
     },
 
@@ -325,9 +328,10 @@ module.exports = {
     ///
     /// @param {string} userId The ID of the attending user.
     /// @param {string} venueId The ID of the venue.
+    /// @param {object} socket The Socket.IO socket.
     /// @param {function} callback Run when this function finishes.
     ///
-    toggleAttendVenue (userId, venueId, callback) {
+    toggleAttendVenue (userId, venueId, socket, callback) {
         waterfall([
             // Find the registered user.
             (next) => {
@@ -380,14 +384,20 @@ module.exports = {
 
             // Attend the venue.
             (venue, next) => {
+                let message = '';
                 if (venue.isAttending(userId) === true) {
                     venue.removeAttendant(userId);
+                    message = 'remove attendant';
                 } else {
                     venue.addAttendant(userId);
+                    message = 'add attendant';
                 }
 
                 venue.save()
-                    .then(() => { return next(null); })
+                    .then(() => { 
+                        socket.emit(message, { venueId });
+                        return next(null); 
+                    })
                     .catch(err => {
                         console.error(`venueController.attendVenue (save venue): ${err}`);
                         return next({

@@ -1,0 +1,89 @@
+.ddd-topbar {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: $topbar-bg;
+    color: $topbar-text;
+    border-bottom: 2px solid $topbar-border;
+    z-index: 2;
+
+    .ddd-topbar-link {
+        color: $topbar-text;
+        text-decoration: none;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $topbar-bg-hover;
+        }
+    }
+
+    .ddd-topbar-main {
+        float: left;
+
+        .ddd-topbar-brand {
+            display: inline-block;
+            padding: 9px 4px;
+            font-family: $special-font;
+            font-size: 24px;
+            font-weight: 700;
+            color: $neon-red;
+            
+            @media #{$xs-screen} {
+                display: none;
+            }
+        }
+
+        @media #{$xs-screen} {
+            display: none;
+        }
+    }
+
+    .ddd-topbar-menu {
+        float: right;
+
+        .ddd-topbar-menu-item {
+            display: inline-block;
+            padding: 12px 4px;
+
+            .ddd-topbar-submenu {
+                display: none;
+
+                &.ddd-topbar-shown {
+                    display: block;
+                    float: left;
+                }
+            }
+        }
+
+        @media #{$sm-screen} {
+            display: none;
+
+            &.ddd-topbar-shown {
+                display: block;
+                width: 100%;
+                float: left;
+
+                .ddd-topbar-menu-item {
+                    display: block;
+                    clear: both;
+                }
+            }
+        }
+    }
+
+    .ddd-topbar-mobile {
+        display: none;
+
+        @media #{$sm-screen} {
+            display: block;
+            float: right;
+            font-size: 18px;
+
+            .ddd-topbar-link {
+                display: inline-block;
+                padding: 12px 12px 13px 12px;
+            }
+        }
+    }
+}

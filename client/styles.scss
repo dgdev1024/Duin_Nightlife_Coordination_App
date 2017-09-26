@@ -1,1 +1,102 @@
-/* You can add global styles to this file, and also import other style files */
+// Google Fonts
+@import url(https://fonts.googleapis.com/css?family=Comfortaa|Raleway);
+
+// Variables
+@import './scss/variables.scss';
+
+// CSS Reset
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: $normal-font;
+}
+
+// Normal Font Size
+div, label, p, ul, ol, a, i, code {
+    font-size: 18px;
+
+    @media #{$sm-screen} {
+        font-size: 16px;
+    }
+}
+
+// Paragraphs
+p, code, li, textarea {
+    line-height: 1.3em;
+}
+
+button {
+    display: inline-block;
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: $page-text;
+    background-color: transparent;
+    border: 2px solid $page-text;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+    }
+
+    &:disabled {
+        color: gray;
+
+        &:hover {
+            background-color: transparent;
+            cursor: default;
+        }
+    }
+
+    @media #{$xs-screen} {
+        font-size: 14px;
+    }
+}
+
+textarea {
+    display: block;
+    width: 100%;
+    margin: 8px 0px;
+    padding: 8px;
+    box-sizing: border-box;
+    resize: none;
+    background-color: transparent;
+    color: $page-text;
+    border: 2px solid $page-text;
+}
+
+// Links
+a {
+    text-decoration: none;
+    color: $page-link;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+// Prebody Includes
+@import './scss/topbar.scss';
+@import './scss/flash.scss';
+
+body {
+    background-color: $page-bg;
+    color: $page-text;
+}
+
+// App Body
+.ddd-body {
+    background-color: $page-bg;
+    color: $page-text;
+    
+    @import './scss/home.scss';
+    @import './scss/venue.scss';
+
+    .ddd-footer {
+        padding: 16px;
+
+        p {
+            text-align: center;
+        }
+    }
+}

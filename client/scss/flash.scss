@@ -1,0 +1,61 @@
+.ddd-flash {
+    position: fixed;
+    top: 47px;
+    left: 0px;
+    width: 100%;
+    border-bottom: 2px solid;
+    z-index: 1;
+
+    &.ddd-flash-default {
+        background-color: $flash-default-bg;
+        color: $flash-default-text;
+        border-bottom-color: $flash-default-text;
+    }
+    
+    &.ddd-flash-ok {
+        background-color: $flash-ok-bg;
+        color: $flash-ok-text;
+        border-bottom-color: $flash-ok-text;
+    }
+    
+    &.ddd-flash-error {
+        background-color: $flash-error-bg;
+        color: $flash-error-text;
+        border-bottom-color: $flash-error-text;
+    }
+
+    p {
+        padding: 16px;
+
+        @media #{$sm-screen} {
+            padding: 8px;
+        }
+    }
+
+    ul {
+        padding: 0px 32px 16px;
+
+        @media #{$sm-screen} {
+            padding-bottom: 8px;
+        }
+    }
+
+    .ddd-flash-close {
+        float: right;
+        padding: 16px;
+
+        @media #{$sm-screen} {
+            padding: 8px;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+    }
+}

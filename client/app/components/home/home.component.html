@@ -1,0 +1,75 @@
+<!-- Page Introduction -->
+<div class="ddd-intro-bg">
+  <div class="ddd-intro-caption">
+    <span class="ddd-intro-heading">
+      Watcha'<br />
+      <span class="ddd-intro-large">DUIN' DUIN' DUIN'</span><br />
+      Tonite?
+    </span>
+    <span class="ddd-intro-subheading">
+      <p>Let us help you find out!</p>
+      <form (submit)="onAreaSearchSubmit($event)">
+        <input type="text" 
+                class="ddd-intro-input"
+                name="searchLocation"
+                [(ngModel)]="searchLocation"
+                placeholder="Enter your city or zip code." />
+        <button type="submit" class="ddd-intro-button" id="left">Search for Venues</button>
+        <button class="ddd-intro-button" id="right" (click)="onCoordinateSearchSubmit($event)">Use my Location</button>
+      </form>
+    </span>
+  </div>
+</div>
+
+<!-- Search Results Section -->
+<div class="ddd-results" id="results" *ngIf="searchMethod === 'location' || searchMethod === 'coordinates'">
+  <div *ngIf="venueFetching === false || venueResults.length > 0; else fetching">
+    <div *ngIf="venueError === ''; else fetchError">
+      <span class="ddd-results-heading">
+        {{
+          searchMethod === 'location' ?
+            'Search Results' :
+            'Venues Near Me'
+        }}
+      </span>
+      <div class="ddd-results-pagination">
+        <button [disabled]="venuePage === 0" (click)="onPrevClicked()"><i class="fa fa-chevron-left"></i></button>
+        <span>Page {{ venuePage + 1 }}</span>
+        <button [disabled]="venueLastPage" (click)="onNextClicked()"><i class="fa fa-chevron-right"></i></button>
+      </div>
+      <div class="ddd-results-panes">
+        <div *ngFor="let venue of venueResults" class="ddd-results-pane">
+          <a routerLink="/venue/{{ venue.id }}">
+            <img src="{{ venue.image }}" alt="{{ venue.name }}" title="{{ venue.name }}" />
+            <span class="ddd-results-subheading">{{ venue.name }}</span>
+          </a>
+          <p>
+            {{ venue.going }} {{ venue.going === 1 ? 'person is' : 'people are' }} going.
+          </p>
+        </div>
+      </div>
+      <div class="ddd-results-pagination">
+        <button [disabled]="venuePage === 0" (click)="onPrevClicked()"><i class="fa fa-chevron-left"></i></button>
+        <span>Page {{ venuePage + 1 }}</span>
+        <button [disabled]="venueLastPage" (click)="onNextClicked()"><i class="fa fa-chevron-right"></i></button>
+      </div>
+    </div>
+    <ng-template #fetchError>
+      <span class="ddd-results-heading">
+        Whoops!
+      </span>
+      <p class="ddd-results-notice">
+        Something went amiss and we couldn't get your results for you.<br />
+        Error: {{ venueError }}
+      </p>
+    </ng-template>
+  </div>
+  <ng-template #fetching>
+    <span class="ddd-results-heading">
+      Please Wait...
+    </span>
+    <p class="ddd-results-notice">
+      We are fetching your venues for you, and will have your results shortly.
+    </p>
+  </ng-template>
+</div>

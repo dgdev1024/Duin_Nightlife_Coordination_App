@@ -16,7 +16,7 @@ module.exports = {
     /// @fn     fetchChatters
     /// @brief  Fetches a list of chatters on the given venue.
     ///
-    /// Details: venueId, page
+    /// Details: venueId
     ///
     /// @param {object} details The details object.
     /// @param {function} callback Run when this function finishes.
@@ -54,8 +54,7 @@ module.exports = {
             (next) => {
                 chatterModel.find({ businessId: details.venueId })
                     .sort('postDate-')
-                    .limit(50)
-                    .skip(50 * details.page)
+                    .limit(100)
                     .exec()
                     .then(chatters => {
                         if (chatters.length === 0) {
@@ -87,7 +86,7 @@ module.exports = {
                 return callback(err);
             }
 
-            return callback(null, results);
+            return callback(null, { chatters: results });
         });
     },
 
@@ -95,7 +94,7 @@ module.exports = {
     /// @fn     postChatter
     /// @brief  Posts a chatter on the given venue.
     ///
-    /// Details: userId, venueId, body
+    /// Details: userId, venueId, body, socket
     ///
     /// @param {object} details The details object.
     /// @param {function} callback Run when this function finishes.
@@ -177,6 +176,11 @@ module.exports = {
                 // Save the chatter to the database.
                 chatter.save()
                     .then(() => { 
+                        details.socket.emit('new chatter', {
+                            venueId: details.venueId,
+                            authorName: user.displayName,
+                            body: details.body
+                        });
                         return next(null); 
                     })
                     .catch(err => {

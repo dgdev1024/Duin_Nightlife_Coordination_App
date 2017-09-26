@@ -1,0 +1,30 @@
+// Media Queries
+$xs-screen: 'only screen and (max-width: 399px)';
+$sm-screen: 'only screen and (max-width: 799px)';
+
+// Fonts
+$special-font: 'Comfortaa', serif;
+$normal-font: 'Raleway', sans-serif;
+
+// Colors
+$flash-default-bg:  lightgrey;
+$flash-default-text:black;
+$flash-ok-bg:       lightgreen;
+$flash-ok-text:     darkgreen;
+$flash-error-bg:    lightpink;
+$flash-error-text:  darkred;
+
+$neon-red:          #F9461D;
+$neon-blue:         #0663FC;
+$neon-yellow:       #FFDB58;
+$neon-orange:       #FF7D37;
+$neon-white:        white;
+
+$topbar-bg:         #010101;
+$topbar-bg-hover:   #4A4A4A;
+$topbar-border:     #05ECFC;
+$topbar-text:       $topbar-border;
+
+$page-bg:           #020204;
+$page-text:         #FEFEFE;
+$page-link:         $topbar-border;

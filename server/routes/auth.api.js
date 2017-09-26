@@ -37,7 +37,7 @@ module.exports = socket => {
             //
             // This makes storing our JWT token on the frontend a bit hairy, so we send the
             // created JWT token to the frontend in a query parameter.
-            return res.redirect(`/finishLogin?jwt=${token}`);
+            return res.redirect(`/finishlogin?jwt=${token}`);
         })(req, res);
     });
 

@@ -1,0 +1,73 @@
+<div class="ddd-venue">
+    <div *ngIf="venueFetching === false || venue !== null; else fetching">
+        <div *ngIf="venueError === ''; else fetchError">
+            <span class="ddd-venue-heading">{{ venue.name }}</span>
+            <img class="ddd-venue-image" src="{{ venue.image }}" alt="{{ venue.name }}" title="{{ venue.name }}" />
+            <ul>
+                <li><i class="fa fa-map-marker"></i> : {{ venue.address }}</li>
+                <li><i class="fa fa-phone"></i> : {{ venue.phone }}</li>
+                <li><i class="fa fa-usd"></i> : {{ venue.price }}</li>
+                <li>
+                    <i class="fa fa-star"></i> : 
+                    <img src="{{ getYelpStars() }}" alt="{{ venue.rating }} / 5 on Yelp" title="{{ venue.rating }} / 5 on Yelp" />
+                </li>
+                <li>
+                    <i class="fa fa-yelp"></i> : 
+                    <a href="{{ venue.yelp }}" target="_blank">View Venue on Yelp!</a>
+                </li>
+                <li>
+                    <i class="fa fa-user"></i> :
+                    {{ venue.going }} {{ venue.going === 1 ? 'person is' : 'people are' }} going.
+                </li>
+                <li *ngIf="loginService.checkToken() === true">
+                    <a href="#" (click)="onAttendClicked($event)">
+                        <i class="fa {{ venueAttending ? 'fa-sign-out' : 'fa-sign-in' }}"></i> : 
+                        {{
+                            venueAttending ?
+                            'Unattend Venue' :
+                            'Attend Venue'
+                        }}
+                    </a>
+                </li>
+            </ul>
+            <div class="ddd-venue-chatters">
+                <div *ngIf="chatterFetching === false; else fetchingChatters">
+                    <span class="ddd-venue-heading">Chatters</span>
+                    <div *ngIf="loginService.checkToken() === true && venueAttending === true" class="ddd-post-chatter">
+                        <form (submit)="onChatterPost($event)">
+                            <textarea name="chatterInput"
+                                      [(ngModel)]="chatterInput"
+                                      placeholder="Post a Chatter"></textarea>
+                            <button type="submit">Post Chatter</button>
+                        </form>
+                    </div>
+                    <div *ngIf="chatters.length > 0; else noChatters">
+                        <p class="ddd-venue-chatter" *ngFor="let chatter of chatters">
+                            <em><strong>{{ chatter.author }}</strong> says: </em> {{ chatter.body }}
+                        </p>
+                    </div>
+                    <ng-template #noChatters>
+                        <p class="ddd-venue-notice">No chatter about this venue, lately!</p>
+                    </ng-template>
+                </div>
+                <ng-template #fetchingChatters>
+                    <span class="ddd-venue-heading">Chatters</span>
+                    <p class="ddd-venue-notice">Fetching Chatters. Please wait...</p>
+                </ng-template>
+            </div>
+        </div>
+        <ng-template #fetchError>
+            <span class="ddd-venue-heading">Whoops!</span>
+            <p class="ddd-venue-notice">
+                Due to an error, we could not get the venue you requested.<br />
+                Error: {{ venueError }}
+            </p>
+        </ng-template>
+    </div>
+    <ng-template #fetching>
+        <span class="ddd-venue-heading">Please Wait...</span>
+        <p class="ddd-venue-notice">
+            Your venue is being fetched. We will have it for you shortly...
+        </p>
+    </ng-template>
+</div>

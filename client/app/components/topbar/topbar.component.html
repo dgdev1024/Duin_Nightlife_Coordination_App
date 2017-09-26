@@ -1,0 +1,40 @@
+<div class="ddd-topbar" (mouseleave)="dismissMobileMenu()">
+  <!-- 
+    The main portion goes to the left side, and will contain our brand name.
+  -->
+  <div class="ddd-topbar-main">
+    <a routerLink="/" class="ddd-topbar-link ddd-topbar-brand">DUIN' DUIN' DUIN'</a>
+  </div>
+  
+  <!--
+    On mobile devices, the menu icon appears in place of the normal menu.
+    Clicking this icon will bring up the menu below the bar.
+  -->
+  <div class="ddd-topbar-mobile">
+    <span class="ddd-topbar-link" (click)="toggleMobileMenu()">
+      <i class="fa fa-bars"></i>
+    </span>
+  </div>
+
+  <!-- 
+    The menu portion goes to the right side, or below the brand on mobile devices. 
+  -->
+  <div class="ddd-topbar-menu {{ mobileMenuShown ? 'ddd-topbar-shown' : '' }}">
+    <div *ngIf="loginService.checkToken() === true; else notLoggedIn">
+      <a routerLink="/" class="ddd-topbar-link ddd-topbar-menu-item">
+        <i class="fa fa-home"></i> Home
+      </a>
+      <a href="javascript:void(0)" class="ddd-topbar-link ddd-topbar-menu-item" (click)="loginService.clearToken()">
+        <i class="fa fa-sign-out"></i> Log Out
+      </a>
+    </div>
+    <ng-template #notLoggedIn>
+      <a routerLink="/" class="ddd-topbar-link ddd-topbar-menu-item">
+        <i class="fa fa-home"></i> Home
+      </a>
+      <a href="#" class="ddd-topbar-link ddd-topbar-menu-item" (click)="dismissMobileMenu(); socialLogin($event, 'twitter');">
+        <i class="fa fa-twitter"></i> Twitter Login
+      </a>
+    </ng-template>
+  </div>
+</div>
