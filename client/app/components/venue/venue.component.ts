@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { VenueService } from '../../services/venue.service';
@@ -73,6 +74,7 @@ export class VenueComponent implements OnInit, OnDestroy {
     this.m_venueError = '';
     this.m_chatters = [];
     this.m_venueFetching = true;
+    this.titleService.setTitle('Fetching Venue - Duin\'');
 
     // Fetch our venue.
     this.venueService.viewVenue(this.m_venueId).subscribe(
@@ -81,6 +83,7 @@ export class VenueComponent implements OnInit, OnDestroy {
 
         this.m_venue = venue;
         this.m_venueFetching = false;
+        this.titleService.setTitle(`${this.m_venue.name} - Duin'`);
 
         // Check to see if the user is attending the venue.
         this.venueService.isAttendingVenue(this.m_venueId).subscribe(
@@ -128,6 +131,7 @@ export class VenueComponent implements OnInit, OnDestroy {
 
         this.m_venueError = message;
         this.m_venueFetching = false;
+        this.titleService.setTitle('Error Fetching Venue - Duin\'');
       }
     );
   }
@@ -137,7 +141,8 @@ export class VenueComponent implements OnInit, OnDestroy {
     private loginService: LoginService,
     private venueService: VenueService,
     private socketService: SocketService,
-    private flashService: FlashService
+    private flashService: FlashService,
+    private titleService: Title
   ) { }
 
   ngOnInit() {

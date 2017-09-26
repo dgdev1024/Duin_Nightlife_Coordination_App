@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SocketService } from '../../services/socket.service';
 import { VenueService, QueryService } from '../../services/venue.service';
@@ -167,10 +168,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     private socketService: SocketService,
     private queryService: QueryService,
     private venueService: VenueService,
-    private flashService: FlashService
+    private flashService: FlashService,
+    private titleService: Title
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Duin\' - The Nightlife App');
     localStorage.removeItem('-ddd-return');
     localStorage.removeItem('-ddd-method');
     localStorage.removeItem('-ddd-location');
