@@ -53,9 +53,8 @@ export class HomeComponent implements OnInit, OnDestroy {
           venue.going--;
           return true;
         }
-        return true;
+        return false;
       });
-      return false;
     });
   }
 
