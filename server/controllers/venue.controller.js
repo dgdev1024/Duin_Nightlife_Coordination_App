@@ -95,7 +95,8 @@ module.exports = {
                                     id: val.id,
                                     name: val.name,
                                     image: val.image_url,
-                                    closed_down: val.is_closed
+                                    closed_down: val.is_closed,
+                                    distance: val.distance
                                 };
                             });
 
