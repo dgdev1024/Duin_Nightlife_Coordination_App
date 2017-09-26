@@ -35,7 +35,8 @@ module.exports = {
                     categories: 'bars,sportsbars',
                     radius: 32187,
                     limit: 21,
-                    offset: 20 * details.page
+                    offset: 20 * details.page,
+                    sort_by: 'distance'
                 };
 
                 // Get the location for our query.
