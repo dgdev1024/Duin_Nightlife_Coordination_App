@@ -21,9 +21,9 @@ const configuration = {
 
     // Facebook Configuration
     facebook: {
-        clientId: process.env.FACEBOOK_APP_ID,
+        clientID: process.env.FACEBOOK_APP_ID,
         clientSecret: process.env.FACEBOOK_APP_SECRET,
-        callbackUrl: `${process.env.SITE_URL}/api/auth/facebook/callback`
+        callbackURL: `${process.env.SITE_URL}/api/auth/facebook/callback`
     }
 };
 
