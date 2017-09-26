@@ -32,6 +32,9 @@
       <a routerLink="/" class="ddd-topbar-link ddd-topbar-menu-item">
         <i class="fa fa-home"></i> Home
       </a>
+      <a href="#" class="ddd-topbar-link ddd-topbar-menu-item" (click)="dismissMobileMenu(); socialLogin($event, 'facebook');">
+        <i class="fa fa-facebook"></i> Facebook Login
+      </a>
       <a href="#" class="ddd-topbar-link ddd-topbar-menu-item" (click)="dismissMobileMenu(); socialLogin($event, 'twitter');">
         <i class="fa fa-twitter"></i> Twitter Login
       </a>
