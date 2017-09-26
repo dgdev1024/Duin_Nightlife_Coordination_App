@@ -14,7 +14,7 @@ mongoose.Promise = global.Promise;
 //
 // Comment this line out when you are ready to deploy this
 // application!
-loadenv('.env');
+// loadenv('.env');
 
 // Connect to Database
 mongoose.connect(process.env.DATABASE_URL, { useMongoClient: true })
