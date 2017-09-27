@@ -33,7 +33,8 @@ export class FinishLoginComponent implements OnInit {
             queryParams: {
               searchMethod: method,
               searchLocation: location
-            }
+            },
+            replaceUrl: true
           });
           return;
         }
@@ -47,13 +48,14 @@ export class FinishLoginComponent implements OnInit {
               searchMethod: method,
               searchLatitude: latitude,
               searchLongitude: longitude
-            }
+            },
+            replaceUrl: true
           });
           return;
         }
       }
 
-      this.routerService.navigate([ '/' ]);
+      this.routerService.navigate([ '/' ], { replaceUrl: true });
     } else {
       // Otherwise, just redirect the user to the page they were at.
       this.routerService.navigate([ returnUrl ], { replaceUrl: true });
