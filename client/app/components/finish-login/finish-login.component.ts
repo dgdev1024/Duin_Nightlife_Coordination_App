@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FlashService, FlashType } from '../../services/flash.service';
 
@@ -60,12 +61,14 @@ export class FinishLoginComponent implements OnInit {
   }
 
   constructor(
+    private titleService: Title,
     private activatedRoute: ActivatedRoute,
     private routerService: Router,
     private flashService: FlashService
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Duin\' - The Nightlife App');
     this.activatedRoute.queryParams.subscribe(params => {
       // Grab the JWT from the query parameter.
       const jwt = params['jwt'];
