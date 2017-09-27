@@ -8,6 +8,8 @@ const path          = require('path');
 const http          = require('http');
 const express       = require('express');
 const session       = require('express-session');
+const mongoose      = require('mongoose');
+const connectMongo  = require('connect-mongo')(session);
 const socketIo      = require('socket.io');
 const bodyParser    = require('body-parser');
 const cors          = require('cors');
@@ -26,7 +28,11 @@ module.exports = () => {
     app.use(session({
         secret: process.env.SESSION_SECRET,
         resave: false,
-        saveUninitialized: false
+        saveUninitialized: false,
+        store: new connectMongo({
+            mongooseConnection: mongoose.connection,
+            ttl: 24 * 60 * 60
+        })
     }));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
