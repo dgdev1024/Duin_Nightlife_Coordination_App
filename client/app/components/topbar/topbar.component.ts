@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { VenueService, QueryService } from '../../services/venue.service';
+import { FlashService, FlashType } from '../../services/flash.service';
 
 @Component({
   selector: 'app-topbar',
@@ -17,7 +18,8 @@ export class TopbarComponent implements OnInit {
     private routerService: Router,
     private loginService: LoginService,
     private venueService: VenueService,
-    private queryService: QueryService
+    private queryService: QueryService,
+    private flashService: FlashService
   ) { }
 
   ngOnInit() {
@@ -70,6 +72,27 @@ export class TopbarComponent implements OnInit {
 
     // Redirect our user to the proper authentication route.
     window.location.href = `/api/auth/${provider}`;
+  }
+
+  deleteUser (ev) {
+    ev.preventDefault();
+
+    const ays = confirm('This will detach your social media account from this website and log you out. Are you sure?');
+
+    if (ays === false) { return; }
+
+    this.loginService.deleteAccount().subscribe(
+      (response) => {
+        const { message } = response.json();
+        this.loginService.clearToken();
+        this.flashService.deploy(message, [], FlashType.OK);
+      },
+
+      (error) => {
+        const { message } = error.json().error;
+        this.flashService.deploy(message, [], FlashType.Error);
+      }
+    );
   }
 
   // Getters

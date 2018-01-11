@@ -24,8 +24,11 @@
       <a routerLink="/" class="ddd-topbar-link ddd-topbar-menu-item">
         <i class="fa fa-home"></i> Home
       </a>
-      <a href="javascript:void(0)" class="ddd-topbar-link ddd-topbar-menu-item" (click)="loginService.clearToken()">
+      <a href="javascript:void(0)" class="ddd-topbar-link ddd-topbar-menu-item" (click)="dismissMobileMenu(); loginService.clearToken()">
         <i class="fa fa-sign-out"></i> Log Out
+      </a>
+      <a href="javascript:void(0)" class="ddd-topbar-link ddd-topbar-menu-item" (click)="dismissMobileMenu(); deleteUser($event)">
+        <i class="fa fa-trash"></i> Delete Account
       </a>
     </div>
     <ng-template #notLoggedIn>
@@ -37,6 +40,9 @@
       </a>
       <a href="#" class="ddd-topbar-link ddd-topbar-menu-item" (click)="dismissMobileMenu(); socialLogin($event, 'twitter');">
         <i class="fa fa-twitter"></i> Twitter Login
+      </a>
+      <a routerLink="/datausage" class="ddd-topbar-link ddd-topbar-menu-item" (click)="dismissMobileMenu()">
+        <i class="fa fa-database"></i> Data Usage FAQ
       </a>
     </ng-template>
   </div>

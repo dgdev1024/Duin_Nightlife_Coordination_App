@@ -7,6 +7,7 @@
 const express = require('express');
 const passport = require('passport');
 const auth = require('../utility/auth');
+const userModel = require('../models/user.model');
 
 // Instead of directly exporting an Express router, we need to export
 // a function that returns a router, because we may be working with our
@@ -42,6 +43,7 @@ module.exports = socket => {
         })(req, res);
     });
 
+    // GET x2: Facebook Authentication
     router.get('/facebook', passport.authenticate('facebook', { session: false }));
     router.get('/facebook/callback', (req, res) => {
         passport.authenticate('facebook', { session: false }, (err, user, info) => {
@@ -61,6 +63,27 @@ module.exports = socket => {
             // created JWT token to the frontend in a query parameter.
             return res.redirect(`/finishlogin?jwt=${token}`);
         })(req, res);
+    });
+
+    // DELETE: Deletes a user's account.
+    router.delete('/delete', auth.jwt, (req, res) => {
+        auth.testLogin(req, (err, user) => {
+            if (err) { return res.status(err.status).json({ error: err }); }
+            
+            userModel.findByIdAndRemove(user.id).then(() => {
+                return res.status(200).json({
+                    message: 'Your account has been deleted.'
+                });
+            }).catch((err) => {
+                console.error(`userController.deleteAccount (delete) - ${err.stack}`);
+                return res.status(500).json({
+                    error: {
+                        status: 500,
+                        message: 'Something went wrong while deleting your account. Try again later.'
+                    }
+                });
+            });
+        });
     });
 
     // Return the router.

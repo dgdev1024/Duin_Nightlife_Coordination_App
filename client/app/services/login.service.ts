@@ -4,6 +4,7 @@
 ///
 
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 
 ///
@@ -24,7 +25,7 @@ export interface LoginToken {
 @Injectable()
 export class LoginService {
 
-  constructor() { }
+  constructor(private httpService: Http) { }
 
   ///
   /// @fn     getToken
@@ -95,6 +96,14 @@ export class LoginService {
     ///
     clearToken (): void {
       localStorage.clear();
+    }
+
+    ///
+    /// @fn     deleteAccount
+    /// @brief  Attempts to delete the user's account.
+    ///
+    deleteAccount () {
+      return this.httpService.delete('/api/auth/delete', this.buildRequestOptions());
     }
   
     ///

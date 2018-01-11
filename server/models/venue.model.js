@@ -15,7 +15,14 @@ const venueSchema = new mongoose.Schema({
     },
 
     // The list of users, by ID, going to the venue.
-    attendants: [String]
+    attendants: [String],
+
+    // Set an expiry for the venue.
+    setDate: {
+        type: Date,
+        default: Date.now,
+        expires: 604800
+    }
 });
 
 // Gets the number of users attending the venue.

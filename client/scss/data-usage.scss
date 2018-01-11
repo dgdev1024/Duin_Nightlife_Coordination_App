@@ -1,0 +1,76 @@
+.ddd-info {
+    width: 95%;
+    max-width: 1024px;
+    overflow: auto;
+    margin: 47px auto 16px auto;
+
+    .ddd-info-heading {
+        display: block;
+        padding: 8px 0px;
+        font-family: $special-font;
+        font-variant: small-caps;
+        font-size: 40px;
+        text-align: center;
+        @include text-shadow(1px, 1px, 5px, $page-text);
+
+        @media #{$sm-screen} {
+            font-size: 30px;
+        }
+
+        @media #{$xs-screen} {
+            font-size: 24px;
+        }
+    }
+
+    .ddd-info-subheading {
+        display: block;
+        padding: 8px 0px;
+        font-family: $special-font;
+        font-variant: small-caps;
+        font-size: 34px;
+        text-align: center;
+
+        @media #{$sm-screen} {
+            font-size: 26px;
+        }
+
+        @media #{$xs-screen} {
+            font-size: 20px;
+        }
+    }
+
+    p {
+        width: 75%;
+        margin: 8px auto;
+        padding: 12px;
+        box-sizing: border-box;
+        list-style: none;
+        text-align: center;
+        padding-bottom: 8px;
+
+        @media #{$sm-screen} {
+            float: none;
+            width: 90%;
+            text-align: left;
+        }
+    }
+
+    ul {
+        width: 85%;
+        margin: 8px auto;
+        padding: 12px;
+        box-sizing: border-box;
+        list-style: none;
+        text-align: center;
+
+        li {
+            padding-bottom: 8px;
+        }
+
+        @media #{$sm-screen} {
+            float: none;
+            width: 95%;
+            text-align: left;
+        }
+    }
+}

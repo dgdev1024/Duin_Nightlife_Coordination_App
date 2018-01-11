@@ -14,6 +14,7 @@ import { VenueService, QueryService } from './services/venue.service';
 import { SocketService } from './services/socket.service';
 import { VenueComponent } from './components/venue/venue.component';
 import { FinishLoginComponent } from './components/finish-login/finish-login.component';
+import { DataUsageComponent } from './components/data-usage/data-usage.component';
 
 // Routing
 const routes: Routes = [
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'finishlogin',
     component: FinishLoginComponent
+  },
+  {
+    path: 'datausage',
+    component: DataUsageComponent
   }
 ];
 
@@ -39,7 +44,8 @@ const routes: Routes = [
     TopbarComponent,
     HomeComponent,
     VenueComponent,
-    FinishLoginComponent
+    FinishLoginComponent,
+    DataUsageComponent
   ],
   imports: [
     BrowserModule,
